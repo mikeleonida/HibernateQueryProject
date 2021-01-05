@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+	<!--  DB Connection -->
+	  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+	  <property name="hibernate.connection.url">jdbc:mysql://localhost/class</property>
+	  <property name="hibernate.connection.username">devuser</property>
+	  <property name="hibernate.connection.password">guest</property>
+	  
+	<!-- JDBC Connection Pooling -->
+	  <property name="hibernate.connection.pool_size">10</property>
+	  
+	  <property name="show_sql">true</property>
+	  <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+	  <property name="hibernate.hbm2ddl.auto">create</property>
+	  
+	<!-- Mapping files -->
+	  <mapping resource="Insurance.hbm.xml" />
+	  
+	  <!-- <mapping resource="Employee.hbm.xml" /> 
+	  <mapping resource="EmployeeDetail.hbm.xml" /> -->
+	  
+	  <mapping resource="onetomany.hbm.xml" /> 
+	  
+	  <mapping resource="manytomany.hbm.xml" />
+
+</session-factory>
+</hibernate-configuration>

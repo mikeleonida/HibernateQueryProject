@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+        
+<hibernate-mapping package="manytomanypack">
+  <class name="Product" table="PRODUCTS">
+	  <id name="productId" column="PRODUCT_ID" >
+	   <generator class="identity" /> 
+	  </id>
+	  <property name="name" />
+	  <property name="price" column="PRICE" />
+	  <set name="orders" 
+	   		table="orderdetails" inverse="true" lazy="true" fetch="select">
+	  		<key>
+	  			<column name="PRODUCT_ID" not-null="true" />
+	  		</key>
+	  		<one-to-many class="manytomanypack.OrderDetail" />
+	  </set>
+  </class>
+  
+  <class name="Order" table="ORDERS">
+	  <id name="orderId" column="ORDER_ID" >
+	   <generator class="identity" /> 
+	  </id>
+	  <property name="personName" />
+	  <set name="items" 
+	   		table="orderdetails" inverse="true" lazy="true" fetch="select">
+	  		<key>
+	  			<column name="ORDER_ID" not-null="true" />
+	  		</key>
+	  		<one-to-many class="manytomanypack.OrderDetail" />
+	  </set>
+  </class>
+  
+  <class name="OrderDetail" table="orderdetails">
+  	<id name="id" column="detail_id">
+  		<generator class="identity" />
+  	</id>
+    
+    <many-to-one name="order" class="manytomanypack.Order" fetch="select"> 
+    	<column name="ORDER_ID" /> 
+    </many-to-one>
+    
+    <many-to-one name="product" class="manytomanypack.Product" fetch="select">
+    	<column name="PRODUCT_ID" not-null="true" /> 
+    </many-to-one>
+    
+    <property name="quantity" column="QTY" />
+    
+    <!-- <many-to-one name = "emp" column = "EMPLOYEE_ID" 
+         class="onetomanypack.Employee" not-null="true" /> -->
+  
+  </class>
+</hibernate-mapping>
