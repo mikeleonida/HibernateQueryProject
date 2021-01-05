@@ -19,6 +19,24 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
+	public Product(long productId, String name, int price) {
+		super();
+		this.productId = productId;
+		this.name = name;
+		this.price = price;
+	}
+
+	public Product(long productId, String name, int price, Set<OrderDetail> orders) {
+		super();
+		this.productId = productId;
+		this.name = name;
+		this.price = price;
+		this.orders = orders;
+		for (OrderDetail o : this.orders) {
+			o.setProduct(this);
+		}
+	}
+
 	public long getProductId() {
 		return productId;
 	}
@@ -49,6 +67,9 @@ public class Product implements Serializable {
 
 	public void setOrders(Set<OrderDetail> orders) {
 		this.orders = orders;
+		for (OrderDetail o : this.orders) {
+			o.setProduct(this);
+		}
 	}
 
 	@Override

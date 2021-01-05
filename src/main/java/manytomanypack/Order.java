@@ -17,6 +17,22 @@ public class Order implements Serializable {
 		this.personName = personName;
 	}
 
+	public Order(long orderId, String personName) {
+		super();
+		this.orderId = orderId;
+		this.personName = personName;
+	}
+
+	public Order(long orderId, String personName, Set<OrderDetail> items) {
+		super();
+		this.orderId = orderId;
+		this.personName = personName;
+		this.items = items;
+		for (OrderDetail o : this.items) {
+			o.setOrder(this);
+		}
+	}
+
 	public long getOrderId() {
 		return orderId;
 	}
@@ -39,6 +55,9 @@ public class Order implements Serializable {
 
 	public void setItems(Set<OrderDetail> items) {
 		this.items = items;
+		for (OrderDetail o : this.items) {
+			o.setOrder(this);
+		}
 	}
 
 	@Override
